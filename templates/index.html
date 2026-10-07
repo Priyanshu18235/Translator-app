@@ -1,0 +1,48 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glass Translator</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <main class="glass card">
+    <h1>Glass Translator</h1>
+    <p class="sub">Translate between 18 languages instantly</p>
+
+    <div class="bar">
+      <select id="src" aria-label="From language">
+        <option value="auto">Detect language</option>
+        {% for code, name in langs %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
+      </select>
+      <button id="swap" class="icon" title="Swap languages" aria-label="Swap languages">&#8644;</button>
+      <select id="dst" aria-label="To language">
+        {% for code, name in langs %}<option value="{{ code }}"{% if code == 'hi' %} selected{% endif %}>{{ name }}</option>{% endfor %}
+      </select>
+    </div>
+
+    <div class="panes">
+      <div class="glass pane">
+        <textarea id="input" maxlength="{{ max_chars }}" placeholder="Type or paste text..."></textarea>
+        <div class="meta"><span id="count">0 / {{ max_chars }}</span><button id="clear" class="link">Clear</button></div>
+      </div>
+      <div class="glass pane">
+        <div id="output" class="out" aria-live="polite">Translation appears here</div>
+        <div class="meta"><span id="status"></span>
+          <span><button id="speak" class="link">Listen</button><button id="copy" class="link">Copy</button></span>
+        </div>
+      </div>
+    </div>
+
+    <button id="go" class="primary">Translate <small>Ctrl + Enter</small></button>
+  </main>
+
+  <script>window.MAX_CHARS = {{ max_chars }};</script>
+  <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

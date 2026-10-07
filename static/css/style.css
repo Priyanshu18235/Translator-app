@@ -1,0 +1,125 @@
+* { box-sizing: border-box; margin: 0; }
+
+:root {
+  --text: #f4f6ff;
+  --muted: rgba(244, 246, 255, .65);
+  --glass: rgba(255, 255, 255, .12);
+  --border: rgba(255, 255, 255, .28);
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #1b1464, #3a1c71 45%, #0f5f8f);
+  overflow-x: hidden;
+}
+
+/* Organic blob shapes */
+.blob {
+  position: fixed;
+  z-index: 0;
+  filter: blur(6px);
+  opacity: .85;
+  animation: morph 14s ease-in-out infinite, drift 22s ease-in-out infinite;
+}
+.b1 { width: 420px; height: 420px; top: -80px; left: -100px; background: linear-gradient(45deg, #ff6ec4, #7873f5); }
+.b2 { width: 360px; height: 360px; bottom: -90px; right: -60px; background: linear-gradient(45deg, #00dbde, #fc00ff); animation-delay: -5s; }
+.b3 { width: 260px; height: 260px; top: 45%; left: 55%; background: linear-gradient(45deg, #f9d423, #ff4e50); animation-delay: -9s; opacity: .6; }
+
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(40px, 30px) rotate(25deg); }
+}
+
+/* Glass surfaces */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: min(880px, 100%);
+  padding: 32px;
+  border-radius: 36px;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -.02em; }
+.sub { color: var(--muted); margin: 6px 0 22px; }
+
+.bar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+
+select, .icon {
+  color: var(--text);
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  outline: none;
+}
+select { flex: 1; min-width: 0; appearance: none; cursor: pointer; }
+select option { color: #222; }
+.icon { cursor: pointer; font-size: 1.2rem; line-height: 1; transition: transform .3s; }
+.icon:hover { transform: rotate(180deg); background: rgba(255, 255, 255, .25); }
+
+.panes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pane { border-radius: 28px 28px 40px 28px; padding: 16px 18px 12px; display: flex; flex-direction: column; min-height: 220px; }
+.pane:last-child { border-radius: 28px 28px 28px 40px; }
+
+textarea, .out {
+  flex: 1;
+  width: 100%;
+  min-height: 150px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  resize: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+textarea::placeholder { color: var(--muted); }
+.out { white-space: pre-wrap; word-break: break-word; overflow-y: auto; }
+.out.placeholder { color: var(--muted); }
+
+.meta { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: .85rem; padding-top: 8px; }
+.link { background: none; border: 0; color: var(--text); cursor: pointer; font: inherit; font-size: .9rem; margin-left: 12px; opacity: .8; }
+.link:hover { opacity: 1; text-decoration: underline; }
+
+.primary {
+  display: block;
+  margin: 20px auto 0;
+  padding: 14px 44px;
+  border: 1px solid var(--border);
+  border-radius: 999px 999px 999px 24px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 110, 196, .8), rgba(120, 115, 245, .8));
+  box-shadow: 0 8px 24px rgba(120, 115, 245, .45);
+  transition: transform .15s, box-shadow .15s;
+}
+.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(120, 115, 245, .6); }
+.primary:disabled { opacity: .6; cursor: wait; transform: none; }
+.primary small { font-weight: 400; opacity: .7; margin-left: 8px; font-size: .75rem; }
+
+@media (max-width: 680px) {
+  .card { padding: 22px 16px; border-radius: 28px; }
+  .panes { grid-template-columns: 1fr; }
+  .primary small { display: none; }
+}
