@@ -2,8 +2,6 @@
 
 A translator web app with a glassmorphic design and animated blob shapes. It comes in two versions: a Django app, and a standalone `index.html` that runs in any browser with no setup.
 
-Translations are powered by the free [MyMemory API](https://mymemory.translated.net/doc/spec.php) (500 characters per request, internet required).
-
 ## Features
 
 - Translate between **18 languages**, with automatic source-language detection
